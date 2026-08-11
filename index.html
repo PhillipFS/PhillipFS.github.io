@@ -149,54 +149,26 @@
 <main>
   <h2>Projects</h2>
   <div id="projects" class="project-grid">
-    <div class="loading">Loading projects from GitHub…</div>
+    <div class="project-card">
+      <a class="title" href="https://github.com/FSProjectPortfolioV/dev5-team-project-2606-red-2606" target="_blank">Smuggler's Hold</a>
+      <div class="project-desc">A "Dr. Mario"-style puzzle game built with data-driven code and data-oriented design in C++. Built puzzle and core gameplay mechanics using colliders and arrays in a 3D/2.5D environment.</div>
+      <div class="project-meta">
+        <span>C++ / Unreal Engine 5</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <a class="title" href="https://github.com/Volcagnome/Portfolio2" target="_blank">Terminate</a>
+      <div class="project-desc">A first-person shooter made in Unity with C++. Programmed player character, camera, and 5 weapon types, plus HUD/audio feedback for weapon firing and damage.</div>
+      <div class="project-meta">
+        <span>C++ / Unity</span>
+      </div>
+    </div>
   </div>
 </main>
 
 <footer>
   © 2026 Phillip Prado — built and hosted on GitHub Pages
 </footer>
-
-<script>
-  // CHANGE THIS to your GitHub username
-  const GITHUB_USERNAME = "PhillipFS";
-
-  const container = document.getElementById("projects");
-
-  fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`)
-    .then(res => {
-      if (!res.ok) throw new Error("GitHub API error");
-      return res.json();
-    })
-    .then(repos => {
-      // Filter out forks and the portfolio repo itself
-      const filtered = repos.filter(r =>
-        !r.fork &&
-        r.name.toLowerCase() !== `${GITHUB_USERNAME.toLowerCase()}.github.io`
-      );
-
-      if (filtered.length === 0) {
-        container.innerHTML = '<div class="empty">No public repositories found yet.</div>';
-        return;
-      }
-
-      container.innerHTML = filtered.map(repo => `
-        <div class="project-card">
-          <a class="title" href="${repo.html_url}" target="_blank">${repo.name}</a>
-          <div class="project-desc">${repo.description ? repo.description : "No description added yet."}</div>
-          <div class="project-meta">
-            ${repo.language ? `<span>${repo.language}</span>` : ""}
-            <span>★ ${repo.stargazers_count}</span>
-            <span>Updated ${new Date(repo.updated_at).toLocaleDateString()}</span>
-          </div>
-        </div>
-      `).join("");
-    })
-    .catch(err => {
-      container.innerHTML = '<div class="empty">Could not load projects right now. Check back soon.</div>';
-      console.error(err);
-    });
-</script>
 
 </body>
 </html>
